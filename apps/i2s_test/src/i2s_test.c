@@ -1,7 +1,7 @@
 /*****************************************************************************
  * Copyright (C)  07 Nov 2014 Simon Derek Hughes
  *
- * i2s_test4.c
+ * i2s_test.c
  *  Raspberry pi I2S bus test application with information and know-how
  *  addressing BCM2835-ARM-Peripherals.pdf documentation omissions and
  *  inaccuracies.
@@ -940,7 +940,7 @@ error:
 "\n"\
 "  Program to cm_pcm clk config().\n"\
 "   First form on command line options (-s, -m, -i, -f all required):\n"\
-"      i2s_test4 -s <SRC> -m <MASH> -i <DIVI> -f <DIVF>\n"\
+"      i2s_test -s <SRC> -m <MASH> -i <DIVI> -f <DIVF>\n"\
 "          -s <SRC>     clock src, 1=OSC(19.2MHz)(default), 4=PLLA(0Hz), \n"\
 "                       5=PLLC(1GHz), 6=PLLD(500MHz), 7=HDMI Aux(216MHz)\n"\
 "          -m <MASH>    number of mash stages {0..3}\n"\
@@ -948,7 +948,7 @@ error:
 "          -f <DIVF>    fractional divider {0..4095}\n"\
 "\n"\
 "   Second form on command line options (-t required):\n"\
-"      i2s_test4 -t <TV> \n"\
+"      i2s_test -t <TV> \n"\
 "          -t <TV>      Test Vector value {0..2} \n"\
 "                       0 => {src=OSC,f=256kHz}\n"\
 "                       1 => {src=OSC,f=512kHz}\n"\
