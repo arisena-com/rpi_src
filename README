@@ -1,0 +1,125 @@
+#*****************************************************************************
+# Copyright (C)  07 Nov 2014 Simon Derek Hughes
+#  Raspberry PI I2S Bus Test Application 
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License along
+#  with this program; if not, write to the Free Software Foundation, Inc.,
+#  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#  For more information, contact Simon Hughes at:
+#    Email:    simon.d.hughes@arisena.com
+#    Address:  Arisena, 11 Gough Way, Cambridge, CB3 9LN, UK.
+#
+#*****************************************************************************
+
+
+Introduction
+============
+This test application is intended to present a simple to understand user space
+test application that can be used to control the output of the Raspberry PI
+I2S bus. See the i2s_test.c comments for detailed explanation.
+
+There are a number of deficiencies with the main source of Raspberry Pi
+technical documentation (REF1) with regard to the I2S Bus:
+ - The PCM/I2S clock registers CM_PCM_CTRL and CM_PCM_DIV are not documented.
+ - The Clock Manager (CM) clock source oscillator frequencies have not been 
+   documented (as they are selected by the board designer)
+ - REF1 Sec 6.3 Table 6-32 equation for I2S_BCLK average output frequency 
+   (4th column) incorrectly documents 1024 as the divisor to DIVF rather than
+   the correct value of 4096. Incorrect values of DIVI and DIVF to achieve
+   a desired I2S_BCLK bit clock frequency are computed using the documented  
+   equation.
+
+This had lead to a confusing picture. Therefore, the aim of this small test 
+application project is to: 
+  - provide a stand-alone, simple, working code sample that solves all the 
+    problems as a whole, so you can start using the Raspberry Pi I2S bus as
+    quickly as possible.
+  - provide references to documentation errata for the CM_PCM_CTRL and
+    CM_PCM_DIV configuration registers.
+  - provide a spreadsheet that shows you how to calculate the correct values
+    of DIVI and DIVF to achieve the desired PCM_CLK/I2S_BLCK target frequency.
+
+
+Building the i2s_test Application
+=================================
+If you have a compiler installed on your RPI, copy file files in the 
+
+	<src_root>/app/i2s_test/src
+
+subdirectory to your RPI and type:
+	make
+This will compile the i2s_test binary, which should be run as root.
+
+The project is intended to be built in a cross compile environment. See 
+
+	<src_root>/app/setup.sh
+
+for more details about setting up the cross compile environment.
+
+
+Running the I2S Bus Test Application i2s_test
+=============================================
+See i2s_test.sh for some example command lines for invoking the test
+appplication.
+
+
+Computing DIVI and DIVF values for I2S_BLCK clock frequency
+===========================================================
+An .xls spreadsheet is supplied so you can compute the correct values
+of DIVI & DIVF for the I2S_BCLK clock frequency required for your
+application. See the xls in the i2s_test/docs subdir and the notes
+in i2s_test.c
+ 
+
+Background
+==========
+Having read BCM2835-ARM-Peripherals.pdf Sec 6.3 (REF1) I thought I had a 
+detailed map to guide an I2S 3G/4G/LTE modem interfacing project
+and quickly bought a Raspberry PI. But slowly, slowly the documentation 
+reminded me of the Hunting of the Snark:
+
+    He had bought a large map representing the sea,
+       Without the least vestige of land:
+    And the crew were much pleased when they found it to be
+       A map they could all understand.
+    
+    "What's the good of Mercator's North Poles and Equators,
+       Tropics, Zones, and Meridian Lines?"
+    So the Bellman would cry: and the crew would reply
+       "They are merely conventional signs!
+    
+    "Other maps are such shapes, with their islands and capes!
+       But we've got our brave Captain to thank
+    (So the crew would protest) "that he's bought us the best—
+       A perfect and absolute blank!" 
+       
+    ...
+                                                         Lewis Carroll
+
+
+Enjoy the hunt.
+
+
+References
+==========
+
+REF1
+  BCM2835 ARM Peripherals 6 Feb 2012 Broadcom Europe
+  BCM2835-ARM-Peripherals.pdf, Section 6.3 General Purpose GPIO Clocks.
+  
+
+Simon Hughes
+20141124
+
+
